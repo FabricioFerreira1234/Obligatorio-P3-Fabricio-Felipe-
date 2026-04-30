@@ -1,0 +1,85 @@
+﻿@model StellarMinds.DTOs.DataTransferObjects.DTOsUsuario.DTOAltaUsuario
+
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h1>Crear Usuario</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <fieldset class="border p-3 mb-3">
+                <legend class="w-auto px-2 fw-bold">Nombre Completo</legend>
+                <div class="form-group">
+                    <label asp-for="NombreCompleto.Nombre" class="control-label">Nombre</label>
+                    <input asp-for="NombreCompleto.Nombre" class="form-control" />
+                    <span asp-validation-for="NombreCompleto.Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NombreCompleto.Apellido" class="control-label">Apellido</label>
+                    <input asp-for="NombreCompleto.Apellido" class="form-control" />
+                    <span asp-validation-for="NombreCompleto.Apellido" class="text-danger"></span>
+                </div>
+            </fieldset>
+
+            <fieldset class="border p-3 mb-3">
+                <legend class="w-auto px-2 fw-bold">Dirección</legend>
+                <div class="form-group">
+                    <label asp-for="Direccion.Calle1" class="control-label">Calle 1</label>
+                    <input asp-for="Direccion.Calle1" class="form-control" />
+                    <span asp-validation-for="Direccion.Calle1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Direccion.Calle2" class="control-label">Calle 2</label>
+                    <input asp-for="Direccion.Calle2" class="form-control" />
+                    <span asp-validation-for="Direccion.Calle2" class="text-danger"></span>
+                </div>
+            </fieldset>
+
+            <fieldset class="border p-3 mb-3">
+                <legend class="w-auto px-2 fw-bold">Datos de Cuenta</legend>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label">Usuario</label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Pass" class="control-label">Contraseña</label>
+                    <input asp-for="Pass" type="password" class="form-control" />
+                    <span asp-validation-for="Pass" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefono" class="control-label">Teléfono</label>
+                    <input asp-for="Telefono" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoUsuario" class="control-label">Tipo de Usuario</label>
+                    <select asp-for="TipoUsuario" class="form-control"
+                            asp-items="Html.GetEnumSelectList<StellarMinds.LogicaNegocio.Enumeraciones.TipoUsuario>()">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
+                    <span asp-validation-for="TipoUsuario" class="text-danger"></span>
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+               <br />
+                <a asp-action="Index" class="btn btn-secondary mt-2">Volver al Listado</a>
+            </div>
+            
+
+        </form>
+    </div>
+</div>
+

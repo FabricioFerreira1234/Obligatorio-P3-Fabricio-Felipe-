@@ -1,0 +1,126 @@
+﻿@model StellarMinds.DTOs.DataTransferObjects.DTOsEquipo.DTOIndexEquipos
+@{
+    ViewData["Title"] = "Equipos";
+}
+
+<h1>Gestión de Equipos</h1>
+<a asp-action="Create" class="btn btn-success mb-3">+ Agregar Equipo</a>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<ul class="nav nav-tabs" id="equipoTabs">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#telescopios">Telescopios (@Model.Telescopios.Count)</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#monturas">Monturas (@Model.Monturas.Count)</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#camaras">Cámaras (@Model.Camaras.Count)</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#oculares">Oculares (@Model.Oculares.Count)</a></li>
+</ul>
+
+<div class="tab-content mt-3">
+
+    <div class="tab-pane fade show active" id="telescopios">
+        <table class="table table-striped">
+            <thead><tr><th>ID</th><th>Marca</th><th>Modelo</th><th>Cantidad</th><th>Apertura</th><th>Dist. Focal</th><th>Peso (Kg)</th><th>Acciones</th></tr></thead>
+            <tbody>
+                @foreach (var t in Model.Telescopios)
+                {
+                    <tr>
+                        <td>@t.Id</td>
+                        <td>@t.Marca</td>
+                        <td>@t.Modelo</td>
+                        <td>@t.Cantidad</td>
+                        <td>@t.Apertura mm</td>
+                        <td>@t.DistanciaFocal mm</td>
+                        <td>@t.Peso</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@t.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@t.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Eliminar este telescopio?')">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="monturas">
+        <table class="table table-striped">
+            <thead><tr><th>ID</th><th>Marca</th><th>Modelo</th><th>Cantidad</th><th>Tipo</th><th>Carga Max (Kg)</th><th>GoTo</th><th>Acciones</th></tr></thead>
+            <tbody>
+                @foreach (var m in Model.Monturas)
+                {
+                    <tr>
+                        <td>@m.Id</td>
+                        <td>@m.Marca</td>
+                        <td>@m.Modelo</td>
+                        <td>@m.Cantidad</td>
+                        <td>@m.Tipo</td>
+                        <td>@m.PesoMaximo</td>
+                        <td>@(m.Goto ? "Sí" : "No")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@m.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Eliminar esta montura?')">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="camaras">
+        <table class="table table-striped">
+            <thead><tr><th>ID</th><th>Marca</th><th>Modelo</th><th>Cantidad</th><th>Sensor</th><th>Resolución</th><th>Pixel (µm)</th><th>Acciones</th></tr></thead>
+            <tbody>
+                @foreach (var c in Model.Camaras)
+                {
+                    <tr>
+                        <td>@c.Id</td>
+                        <td>@c.Marca</td>
+                        <td>@c.Modelo</td>
+                        <td>@c.Cantidad</td>
+                        <td>@c.Sensor</td>
+                        <td>@c.Resolucion</td>
+                        <td>@c.PixelSize</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@c.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Eliminar esta cámara?')">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="oculares">
+        <table class="table table-striped">
+            <thead><tr><th>ID</th><th>Marca</th><th>Modelo</th><th>Cantidad</th><th>Diámetro (mm)</th><th>Ángulo Visual (°)</th><th>Acciones</th></tr></thead>
+            <tbody>
+                @foreach (var o in Model.Oculares)
+                {
+                    <tr>
+                        <td>@o.Id</td>
+                        <td>@o.Marca</td>
+                        <td>@o.Modelo</td>
+                        <td>@o.Cantidad</td>
+                        <td>@o.Diametro</td>
+                        <td>@o.AnguloVisual</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@o.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@o.Id"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Eliminar este ocular?')">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

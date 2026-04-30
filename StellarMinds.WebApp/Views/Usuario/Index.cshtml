@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StellarMinds.DTOs.DataTransferObjects.DTOsUsuario.DTOUsuario>
+
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<h1>Gestión de Usuarios</h1>
+
+<a asp-action="Create" class="btn btn-success mb-3">+ Registrar Usuario</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Calle 1</th>
+            <th>Calle 2</th>
+            <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Username)</th>
+            <th>@Html.DisplayNameFor(model => model.TipoUsuario)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NombreCompleto.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.NombreCompleto.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => item.Direccion.Calle1)</td>
+                <td>@Html.DisplayFor(modelItem => item.Direccion.Calle2)</td>
+                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                <td>@Html.DisplayFor(modelItem => item.TipoUsuario)</td>
+                <td>
+                    <a asp-action="Delete" asp-route-email="@item.Email"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Eliminar este usuario?')">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

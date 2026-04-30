@@ -1,0 +1,32 @@
+﻿@model StellarMinds.DTOs.DataTransferObjects.DTOsEquipo.DTOAltaMontura
+@{
+    ViewData["Title"] = "Alta Montura";
+}
+
+<h1>Alta Montura</h1>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateMontura">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+            <div class="form-group"><label asp-for="Marca">Marca</label><input asp-for="Marca" class="form-control" /></div>
+            <div class="form-group"><label asp-for="Modelo">Modelo</label><input asp-for="Modelo" class="form-control" /></div>
+            <div class="form-group"><label asp-for="Cantidad">Cantidad</label><input asp-for="Cantidad" class="form-control" /></div>
+            <div class="form-group">
+                <label asp-for="Tipo">Tipo de Montura</label>
+                <select asp-for="Tipo" class="form-control"
+                        asp-items="Html.GetEnumSelectList<StellarMinds.LogicaNegocio.Enumeraciones.TipoMontura>()">
+                    <option value="">-- Seleccionar --</option>
+                </select>
+            </div>
+            <div class="form-group"><label asp-for="PesoMaximo">Carga Máxima (Kg)</label><input asp-for="PesoMaximo" class="form-control" /></div>
+            <div class="form-group">
+                <label asp-for="Goto">GoTo (computarizada)</label>
+                <input asp-for="Goto" type="checkbox" class="form-check-input ms-2" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+            <a asp-action="Create" class="btn btn-secondary mt-3">Volver</a>
+        </form>
+    </div></div>

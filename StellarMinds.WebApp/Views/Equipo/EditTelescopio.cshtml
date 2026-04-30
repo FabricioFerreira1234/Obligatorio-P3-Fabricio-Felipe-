@@ -1,0 +1,19 @@
+﻿@using StellarMinds.DTOs.DataTransferObjects.DTOsEquipo
+@model DTOAltaTelescopio
+<h1>Editar Telescopio</h1>
+<form asp-action="EditTelescopio">
+    <input type="hidden" asp-for="Id" />
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+    <div class="form-group"><label asp-for="Marca">Marca</label><input asp-for="Marca" class="form-control" /></div>
+    <div class="form-group"><label asp-for="Modelo">Modelo</label><input asp-for="Modelo" class="form-control" /></div>
+    <div class="form-group"><label asp-for="Cantidad">Cantidad</label><input asp-for="Cantidad" class="form-control" /></div>
+    <div class="form-group"><label asp-for="Apertura">Apertura (mm)</label><input asp-for="Apertura" class="form-control" /></div>
+    <div class="form-group"><label asp-for="RelacionFocal">Relación Focal</label><input asp-for="RelacionFocal" class="form-control" /></div>
+    <div class="form-group"><label asp-for="DistanciaFocal">Distancia Focal (mm)</label><input asp-for="DistanciaFocal" class="form-control" /></div>
+    <div class="form-group"><label asp-for="Peso">Peso (Kg)</label><input asp-for="Peso" class="form-control" /></div>
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Cancelar</a>
+</form>
