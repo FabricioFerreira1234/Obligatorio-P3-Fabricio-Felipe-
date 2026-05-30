@@ -28,6 +28,15 @@ namespace StellarMinds.LogicaAplicacion.CasosUso.CUUsuario
                 throw new UsuarioException("Ya existe un usuario registrado con ese email.");
             }
 
+            if (u.TipoUsuario is null)
+            {
+                throw new UsuarioException("Debe asignar un rol al usuario.");
+            }
+            if (!Enum.IsDefined(typeof(TipoUsuario), u.TipoUsuario.Value))
+            {
+                throw new UsuarioException("El rol indicado no es válido.");
+            }
+
             Usuario nuevo = MapperUsuario.ToUsuario(u);
             nuevo.Validar();
             _repoUsuario.Add(nuevo);

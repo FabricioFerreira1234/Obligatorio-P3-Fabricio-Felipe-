@@ -19,8 +19,11 @@ namespace StellarMinds.LogicaNegocio.Entidades
         public int MonturaId { get; set; }
         public Montura Montura { get; set; }
 
-        public int? VisualId { get; set; }      
+        public int? VisualId { get; set; }
         public Visual Visual { get; set; }
+
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
 
         public EstadoPrestamo Estado { get; set; }
 
@@ -39,7 +42,9 @@ namespace StellarMinds.LogicaNegocio.Entidades
 
         public void Validar()
         {
-            //throw new PrestamoException();
+            Fecha?.Validar();
         }
+
+        public bool EstaAtrasado() => Estado == EstadoPrestamo.EN_PRESTAMO && DateTime.Now > Fecha.Fin;
     }
 }

@@ -13,7 +13,7 @@ namespace StellarMinds.LogicaNegocio.ValueObjects.VOPrestamo
         public DateTime Inicio { get;  init; }
         public DateTime Fin { get;  init; }
 
-        private FechaVO(DateTime inicio, DateTime fin)
+        public FechaVO(DateTime inicio, DateTime fin)
         {
          
             Inicio = inicio;

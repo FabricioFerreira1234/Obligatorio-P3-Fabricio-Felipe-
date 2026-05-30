@@ -8,7 +8,7 @@ using System.Text;
 namespace StellarMinds.LogicaAplicacion.ICasosUso.ICUPrestamo
 {
     public interface ICUAltaPrestamo
-    { 
-        void Ejecutar(DTOAltaPrestamo dto);
+    {
+        void Ejecutar(DTOAltaPrestamo dto, string email);
     }
 }

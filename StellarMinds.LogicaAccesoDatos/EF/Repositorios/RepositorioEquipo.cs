@@ -18,7 +18,7 @@ namespace StellarMinds.LogicaAccesoDatos.EF.Repositorios
         }
         public void Update(Equipo e)
         {
-            _context.Equipos.Update(e);
+            _context.Equipos.Update(e); 
             _context.SaveChanges();
         }
 

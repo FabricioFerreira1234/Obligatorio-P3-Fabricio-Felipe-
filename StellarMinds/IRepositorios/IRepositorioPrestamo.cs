@@ -6,6 +6,7 @@ using System.Text;
 namespace StellarMinds.LogicaNegocio.IRepositorios
 {
     public interface IRepositorioPrestamo : IRepositorio<Prestamo>
-    { 
+    {
+        List<Prestamo> ObtenerPorSocioYMes(int usuarioId, int mes, int anio);
     }
 }

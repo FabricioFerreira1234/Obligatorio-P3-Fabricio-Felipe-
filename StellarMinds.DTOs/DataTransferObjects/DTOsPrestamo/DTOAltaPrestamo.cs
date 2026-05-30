@@ -14,8 +14,9 @@ namespace StellarMinds.DTOs.DataTransferObjects.DTOsPrestamo
         public FechaVO Fecha { get; set; }
         public int TelescopioId { get; set; }
         public int MonturaId { get; set; }
-        public int VisualId { get; set; }
-        public EstadoPrestamo Estado { get; set; }  
+        public int? VisualId { get; set; }
+        public int UsuarioId { get; set; }
+        public EstadoPrestamo Estado { get; set; }
 
 
     }

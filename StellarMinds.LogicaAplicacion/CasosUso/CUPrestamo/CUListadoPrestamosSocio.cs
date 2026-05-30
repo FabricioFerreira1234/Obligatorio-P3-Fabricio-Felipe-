@@ -1,38 +1,37 @@
-﻿using StellarMinds.DTOs.DataTransferObjects.DTOsPrestamo;
+using StellarMinds.DTOs.DataTransferObjects.DTOsPrestamo;
 using StellarMinds.DTOs.Mappers;
 using StellarMinds.LogicaAplicacion.ICasosUso.ICUPrestamo;
 using StellarMinds.LogicaNegocio.Entidades;
-using StellarMinds.LogicaNegocio.Enumeraciones;
 using StellarMinds.LogicaNegocio.Excepciones;
 using StellarMinds.LogicaNegocio.IRepositorios;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace StellarMinds.LogicaAplicacion.CasosUso.CUPrestamo
 {
-    public class CUAltaPrestamo : ICUAltaPrestamo
+    public class CUListadoPrestamosSocio : ICUListadoPrestamosSocio
     {
         private readonly IRepositorioPrestamo _repoPrestamo;
         private readonly IRepositorioUsuario _repoUsuario;
-        public CUAltaPrestamo(IRepositorioPrestamo repoPrestamo, IRepositorioUsuario repoUsuario)
+
+        public CUListadoPrestamosSocio(IRepositorioPrestamo repoPrestamo, IRepositorioUsuario repoUsuario)
         {
             _repoPrestamo = repoPrestamo;
             _repoUsuario = repoUsuario;
         }
 
-        public void Ejecutar(DTOAltaPrestamo p, string email)
+        public List<DTOPrestamoListado> Ejecutar(string email, int mes, int anio)
         {
+            if (mes < 1 || mes > 12)
+                throw new PrestamoException("El mes debe estar entre 1 y 12.");
+
             Usuario socio = _repoUsuario.FindByEmail(email);
             if (socio == null)
                 throw new PrestamoException("No se encontró el socio logueado.");
 
-            p.UsuarioId = socio.Id;
-            Prestamo Nuevo = MapperPrestamo.ToPrestamo(p);
-            Nuevo.Estado = EstadoPrestamo.EN_PRESTAMO;
-            Nuevo.Validar();
-            _repoPrestamo.Add(Nuevo);
+            return _repoPrestamo.ObtenerPorSocioYMes(socio.Id, mes, anio)
+                .Select(MapperPrestamo.ToDTOListado)
+                .ToList();
         }
-
     }
 }
