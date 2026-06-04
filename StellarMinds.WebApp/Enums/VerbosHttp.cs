@@ -1,4 +1,4 @@
-namespace StellarMinds.WebApp.Auxiliar
+namespace StellarMinds.WebApp.Enums
 {
     // Verbos HTTP soportados por el cliente auxiliar.
     public enum VerbosHttp

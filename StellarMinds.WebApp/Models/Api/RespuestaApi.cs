@@ -1,11 +1,17 @@
 using Newtonsoft.Json;
+using StellarMinds.WebApp.Auxiliar;
 
-namespace StellarMinds.WebApp.Auxiliar
+namespace StellarMinds.WebApp.Models.Api
 {
-    // Helper de lectura de la respuesta de la API (complementa a ClienteHttpAuxiliar, sin ensuciar sus 2 métodos).
+    // Forma del cuerpo de error que devuelve la WebAPI: { "message": "..." }.
+    public class MensajeApi
+    {
+        public string Message { get; set; }
+    }
+
+    // Lectura del mensaje de error de una respuesta fallida de la API.
     public static class RespuestaApi
     {
-        // Extrae el mensaje de error { "message": "..." } que devuelve la API, o un texto por defecto.
         public static string LeerError(HttpResponseMessage respuesta)
         {
             try
@@ -20,10 +26,5 @@ namespace StellarMinds.WebApp.Auxiliar
             }
             return $"La API respondió {(int)respuesta.StatusCode}.";
         }
-    }
-
-    public class MensajeApi
-    {
-        public string Message { get; set; }
     }
 }

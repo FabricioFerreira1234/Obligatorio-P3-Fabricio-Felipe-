@@ -1,3 +1,4 @@
+using StellarMinds.WebApp.Enums;
 using System.Net.Http.Json;
 
 namespace StellarMinds.WebApp.Auxiliar

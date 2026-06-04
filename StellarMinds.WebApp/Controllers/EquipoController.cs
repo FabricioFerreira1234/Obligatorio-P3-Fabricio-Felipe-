@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
+using StellarMinds.WebApp.Enums;
 using StellarMinds.WebApp.Models.Api;
 
 namespace StellarMinds.WebApp.Controllers
