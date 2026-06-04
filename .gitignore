@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Secreto local: API key de Gemini para el RF07. NO sube a git; va solo en el zip de entrega.
+StellarMinds - Server/ObligatorioWebApi/appsettings.Development.json
