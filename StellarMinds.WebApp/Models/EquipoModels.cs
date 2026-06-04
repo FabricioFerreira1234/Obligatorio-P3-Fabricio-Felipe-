@@ -1,7 +1,8 @@
-namespace StellarMinds.WebApp.Models.Api
+using StellarMinds.WebApp.Enums;
+
+namespace StellarMinds.WebApp.Models
 {
-    // Modelos de contrato de Equipo. GET api/Equipo devuelve las cuatro listas; los Alta* son cuerpos
-    // de POST/PUT. Reemplazan a las entidades de dominio y a los DTOs de equipo del servidor.
+    // Modelos de contrato de Equipo. GET api/Equipo devuelve las cuatro listas; los Alta* son cuerpos de POST/PUT.
 
     public class TelescopioModel
     {

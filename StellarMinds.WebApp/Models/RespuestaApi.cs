@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 
-namespace StellarMinds.WebApp.Models.Api
+namespace StellarMinds.WebApp.Models
 {
     // Forma del cuerpo de error que devuelve la WebAPI: { "message": "..." }.
     public class MensajeApi

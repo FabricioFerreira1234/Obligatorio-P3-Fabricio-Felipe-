@@ -1,4 +1,4 @@
-﻿@model StellarMinds.WebApp.Models.Api.AltaUsuarioModel
+@model StellarMinds.WebApp.Models.AltaUsuarioModel
 
 @{
     ViewData["Title"] = "Crear Usuario";
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label asp-for="TipoUsuario" class="control-label">Tipo de Usuario</label>
                     <select asp-for="TipoUsuario" class="form-control"
-                            asp-items="Html.GetEnumSelectList<StellarMinds.WebApp.Models.Api.TipoUsuario>()">
+                            asp-items="Html.GetEnumSelectList<StellarMinds.WebApp.Enums.TipoUsuario>()">
                         <option value="">-- Seleccionar --</option>
                     </select>
                     <span asp-validation-for="TipoUsuario" class="text-danger"></span>

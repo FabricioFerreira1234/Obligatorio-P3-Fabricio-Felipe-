@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
+using StellarMinds.WebApp.Filter;
 using StellarMinds.WebApp.Models;
-using StellarMinds.WebApp.Models.Api;
 
 namespace StellarMinds.WebApp.Controllers
 {
     // RF10 - Ranking de objetos celestes observados (cualquier rol). Consume la WebAPI vía ClienteHttpAuxiliar.
-    [Authorize]
+    [LoginFilter]
     public class RankingController : Controller
     {
         [HttpGet]

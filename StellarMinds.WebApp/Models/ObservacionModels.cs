@@ -1,4 +1,4 @@
-namespace StellarMinds.WebApp.Models.Api
+namespace StellarMinds.WebApp.Models
 {
     // Modelos de contrato de Observación (RF07).
 

@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
-using StellarMinds.WebApp.Models.Api;
+using StellarMinds.WebApp.Filter;
+using StellarMinds.WebApp.Models;
 
 namespace StellarMinds.WebApp.Controllers
 {
     // Gestión de equipos (Rol Administrador). Consume la WebAPI vía ClienteHttpAuxiliar (token Bearer).
-    [Authorize]
+    [LoginFilter]
     public class EquipoController : Controller
     {
         private string Token => HttpContext.Session.GetString("token");

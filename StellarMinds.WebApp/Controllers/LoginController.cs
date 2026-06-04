@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
 using StellarMinds.WebApp.Models;
-using StellarMinds.WebApp.Models.Api;
 using System.Security.Claims;
 
 namespace StellarMinds.WebApp.Controllers

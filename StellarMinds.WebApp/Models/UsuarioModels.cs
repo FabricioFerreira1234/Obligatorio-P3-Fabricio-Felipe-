@@ -1,7 +1,8 @@
-namespace StellarMinds.WebApp.Models.Api
+using StellarMinds.WebApp.Enums;
+
+namespace StellarMinds.WebApp.Models
 {
-    // Modelos de contrato que la WebApp usa para hablar con la API de Usuario.
-    // Reemplazan a los DTOs del servidor: la WebApp ya NO referencia StellarMinds.DTOs ni el dominio.
+    // Modelos que la WebApp usa para hablar con la API de Usuario. Reemplazan a los DTOs del servidor.
 
     // Equivale al value object NombreCompletoVO del servidor (mismo shape JSON).
     public class NombreCompletoModel

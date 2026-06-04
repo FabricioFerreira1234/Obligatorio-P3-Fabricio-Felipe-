@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
-using StellarMinds.WebApp.Models.Api;
+using StellarMinds.WebApp.Filter;
+using StellarMinds.WebApp.Models;
 
 namespace StellarMinds.WebApp.Controllers
 {
     // Gestión de usuarios (Rol Administrador). Consume la WebAPI vía ClienteHttpAuxiliar (token Bearer).
-    [Authorize]
+    [LoginFilter]
     public class UsuarioController : Controller
     {
         public IActionResult Index()
@@ -30,7 +31,7 @@ namespace StellarMinds.WebApp.Controllers
             return View(new List<UsuarioModel>());
         }
 
-        [Authorize]
+        [LoginFilter]
         public IActionResult Create()
         {
             if (!EsAdministrador()) return Forbid();
@@ -38,7 +39,7 @@ namespace StellarMinds.WebApp.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [LoginFilter]
         public IActionResult Create(AltaUsuarioModel u)
         {
             if (!EsAdministrador()) return Forbid();

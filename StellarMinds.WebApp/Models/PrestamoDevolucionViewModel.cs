@@ -1,4 +1,4 @@
-using StellarMinds.WebApp.Models.Api;
+using StellarMinds.WebApp.Models;
 
 namespace StellarMinds.WebApp.Models
 {

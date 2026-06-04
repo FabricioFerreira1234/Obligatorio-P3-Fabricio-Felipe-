@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
+using StellarMinds.WebApp.Filter;
 using StellarMinds.WebApp.Models;
-using StellarMinds.WebApp.Models.Api;
 
 namespace StellarMinds.WebApp.Controllers
 {
     // Préstamos: alta por Coordinador (RF04), devolución (RF05), Mis Préstamos (RF08) y
     // Socios por Telescopio (RF09). Consume la WebAPI vía ClienteHttpAuxiliar (token Bearer).
-    [Authorize]
+    [LoginFilter]
     public class PrestamoController : Controller
     {
         private string Token => HttpContext.Session.GetString("token");

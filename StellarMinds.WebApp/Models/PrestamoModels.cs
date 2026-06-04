@@ -1,4 +1,6 @@
-namespace StellarMinds.WebApp.Models.Api
+using StellarMinds.WebApp.Enums;
+
+namespace StellarMinds.WebApp.Models
 {
     // Modelos de contrato de Préstamo.
 

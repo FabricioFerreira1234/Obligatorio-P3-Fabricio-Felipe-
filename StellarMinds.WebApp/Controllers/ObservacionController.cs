@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StellarMinds.WebApp.Auxiliar;
 using StellarMinds.WebApp.Enums;
+using StellarMinds.WebApp.Filter;
 using StellarMinds.WebApp.Models;
-using StellarMinds.WebApp.Models.Api;
 
 namespace StellarMinds.WebApp.Controllers
 {
     // RF07 - Alta de observación (Rol Socio). Consume la WebAPI vía ClienteHttpAuxiliar (token Bearer).
-    [Authorize]
+    [LoginFilter]
     public class ObservacionController : Controller
     {
         [HttpGet]
