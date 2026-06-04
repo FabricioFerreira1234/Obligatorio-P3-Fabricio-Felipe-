@@ -31,6 +31,12 @@
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                             {
+                                @* RF10 - Ranking de objetos celestes: disponible para cualquier rol. *@
+                                <li class="nav-item">
+                                    <a asp-controller="Ranking" asp-action="Index" class="btn btn-outline-primary me-2">
+                                        Ranking de Objetos
+                                    </a>
+                                </li>
 
                                 @if (User.FindFirst("TipoUsuario")?.Value == "Administrador")
                                 {
@@ -48,6 +54,34 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a asp-controller="Prestamo" asp-action="SociosPorTelescopio" class="btn btn-primary me-2">
+                                            Socios por Telescopio
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-danger">
+                                            Cerrar Sesión
+                                        </a>
+                                    </li>
+                                }
+                                @if (User.FindFirst("TipoUsuario")?.Value == "Coordinador")
+                                {
+                                    <li class="nav-item">
+                                        <a asp-controller="Prestamo" asp-action="Create" class="btn btn-primary me-2">
+                                            Nuevo Préstamo
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Prestamo" asp-action="Devolucion" class="btn btn-primary me-2">
+                                            Devolución
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Prestamo" asp-action="SociosPorTelescopio" class="btn btn-primary me-2">
+                                            Socios por Telescopio
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-danger">
                                             Cerrar Sesión
                                         </a>
@@ -55,6 +89,16 @@
                                 }
                                 @if (User.FindFirst("TipoUsuario")?.Value == "Socio")
                                 {
+                                <li class="nav-item">
+                                    <a asp-controller="Observacion" asp-action="Create" class="btn btn-primary me-2">
+                                        Nueva Observación
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Prestamo" asp-action="MisPrestamos" class="btn btn-primary me-2">
+                                        Mis Préstamos
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-danger">
                                         Cerrar Sesión

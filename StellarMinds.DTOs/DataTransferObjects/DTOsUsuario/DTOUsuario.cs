@@ -8,6 +8,7 @@ namespace StellarMinds.DTOs.DataTransferObjects.DTOsUsuario
 {
     public class DTOUsuario
     {
+        public int Id { get; set; }
         public NombreCompletoVO NombreCompleto { get; set; }
         public DireccionVO Direccion { get; set; }
         public int Telefono { get; set; }

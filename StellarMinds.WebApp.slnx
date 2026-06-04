@@ -1,7 +1,3 @@
 <Solution>
   <Project Path="StellarMinds.WebApp/StellarMinds.WebApp.csproj" />
-  <Project Path="StellarMinds.DTOs/StellarMinds.DTOs.csproj" />
-  <Project Path="StellarMinds.LogicaAccesoDatos/StellarMinds.LogicaAccesoDatos.csproj" />
-  <Project Path="StellarMinds.LogicaAplicacion/StellarMinds.LogicaAplicacion.csproj" />
-  <Project Path="StellarMinds/StellarMinds.LogicaNegocio.csproj" />
 </Solution>

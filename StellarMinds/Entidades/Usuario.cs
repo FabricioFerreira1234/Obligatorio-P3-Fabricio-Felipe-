@@ -20,7 +20,7 @@ namespace StellarMinds.LogicaNegocio.Entidades
         public int Telefono {  get; set; }
         [Required]
         public string Email { get; set; }
-       [StringLength(20, MinimumLength = 5, ErrorMessage = "El nombre de usuario debe tener entre 5 y 20 caracteres.")]
+       [StringLength(50, MinimumLength = 5, ErrorMessage = "El nombre de usuario debe tener entre 5 y 50 caracteres.")]
         public string Username { get; set; }
         public string Pass { get; set; }
         public TipoUsuario TipoUsuario { get; set; }

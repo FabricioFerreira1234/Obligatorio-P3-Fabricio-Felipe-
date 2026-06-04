@@ -1,79 +1,77 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StellarMinds.DTOs.DataTransferObjects.DTOsUsuario;
-using StellarMinds.LogicaAplicacion.ICasosUso.ICUUsuario;
-using StellarMinds.LogicaNegocio.Excepciones;
-using StellarMinds.LogicaNegocio.Enumeraciones;
+using Newtonsoft.Json;
+using StellarMinds.WebApp.Auxiliar;
+using StellarMinds.WebApp.Models.Api;
 
 namespace StellarMinds.WebApp.Controllers
 {
+    // Gestión de usuarios (Rol Administrador). Consume la WebAPI vía ClienteHttpAuxiliar (token Bearer).
+    [Authorize]
     public class UsuarioController : Controller
     {
-        private readonly ICUAltaUsuario _cuAltaUsuario;
-        private readonly ICUObtenerUsuarios _cuObtenerUsuarios;
-        private readonly ICUEliminar _cuEliminarUsuario;
-
-        public UsuarioController(ICUAltaUsuario cuAltaUsuario,
-                                 ICUObtenerUsuarios cuObtenerUsuarios,
-                                 ICUEliminar cuEliminarUsuario)
-        {
-            _cuAltaUsuario = cuAltaUsuario;
-            _cuObtenerUsuarios = cuObtenerUsuarios;
-            _cuEliminarUsuario = cuEliminarUsuario;
-        }
-
-  
-        private bool EsAdministrador()
-        {
-            var tipo = User.FindFirst("TipoUsuario")?.Value;
-            return Enum.TryParse<TipoUsuario>(tipo, out var t) && t == TipoUsuario.Administrador;
-        }
-
-      
         public IActionResult Index()
         {
-            return View(_cuObtenerUsuarios.ObtenerUsuarios());
+            if (!EsAdministrador()) return Forbid();
+
+            string token = HttpContext.Session.GetString("token");
+            HttpResponseMessage respuesta = ClienteHttpAuxiliar.EnviarSolicitud(
+                ClienteHttpAuxiliar.UrlBase + "Usuario", VerbosHttp.GET, null, token);
+
+            if (respuesta.IsSuccessStatusCode)
+            {
+                var usuarios = JsonConvert.DeserializeObject<List<UsuarioModel>>(
+                    ClienteHttpAuxiliar.ObtenerBody(respuesta)) ?? new();
+                return View(usuarios);
+            }
+
+            ViewBag.Error = RespuestaApi.LeerError(respuesta);
+            return View(new List<UsuarioModel>());
         }
 
-     
         [Authorize]
         public IActionResult Create()
         {
             if (!EsAdministrador()) return Forbid();
-            return View();
+            return View(new AltaUsuarioModel());
         }
 
-      
         [HttpPost]
         [Authorize]
-        public IActionResult Create(DTOAltaUsuario u)
+        public IActionResult Create(AltaUsuarioModel u)
         {
             if (!EsAdministrador()) return Forbid();
             if (!ModelState.IsValid) return View(u);
 
-            try
-            {
-                _cuAltaUsuario.AltaUsuario(u);
-            }
-            catch (UsuarioException e)
-            {
-                ViewBag.Error = e.Message; // así la vista puede mostrar el error
-                return View();
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = "Ocurrió un error inesperado.";
-                return View();
-            }
+            string token = HttpContext.Session.GetString("token");
+            HttpResponseMessage respuesta = ClienteHttpAuxiliar.EnviarSolicitud(
+                ClienteHttpAuxiliar.UrlBase + "Usuario", VerbosHttp.POST, u, token);
+
+            if (respuesta.IsSuccessStatusCode)
+                return RedirectToAction("Index");
+
+            ViewBag.Error = RespuestaApi.LeerError(respuesta);
+            return View(u);
+        }
+
+        public IActionResult Delete(string email)
+        {
+            if (!EsAdministrador()) return Forbid();
+
+            string token = HttpContext.Session.GetString("token");
+            HttpResponseMessage respuesta = ClienteHttpAuxiliar.EnviarSolicitud(
+                ClienteHttpAuxiliar.UrlBase + "Usuario/" + email, VerbosHttp.DELETE, null, token);
+
+            if (!respuesta.IsSuccessStatusCode)
+                TempData["Error"] = RespuestaApi.LeerError(respuesta);
 
             return RedirectToAction("Index");
         }
 
-       
-        public IActionResult Delete(string email)
+        private bool EsAdministrador()
         {
-            _cuEliminarUsuario.Eliminar(email);
-            return RedirectToAction("Index");
+            var tipo = User.FindFirst("TipoUsuario")?.Value;
+            return Enum.TryParse<TipoUsuario>(tipo, out var t) && t == TipoUsuario.Administrador;
         }
     }
 }

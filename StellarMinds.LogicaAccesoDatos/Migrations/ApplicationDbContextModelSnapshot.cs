@@ -21,6 +21,35 @@ namespace StellarMinds.LogicaAccesoDatos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Auditoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Accion")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PrestamoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrestamoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Auditorias");
+                });
+
             modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Equipo", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +81,65 @@ namespace StellarMinds.LogicaAccesoDatos.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Equipo");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.ObjetoCeleste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Magnitud")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ObjetosCelestes");
+                });
+
+            modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Observacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotivoIA")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("ObjetoCelesteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrestamoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResultadoIA")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjetoCelesteId");
+
+                    b.HasIndex("PrestamoId");
+
+                    b.ToTable("Observaciones");
                 });
 
             modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Prestamo", b =>
@@ -114,8 +202,8 @@ namespace StellarMinds.LogicaAccesoDatos.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -198,6 +286,44 @@ namespace StellarMinds.LogicaAccesoDatos.Migrations
                         .HasColumnType("decimal(10,2)");
 
                     b.HasDiscriminator().HasValue("Ocular");
+                });
+
+            modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Auditoria", b =>
+                {
+                    b.HasOne("StellarMinds.LogicaNegocio.Entidades.Prestamo", "Prestamo")
+                        .WithMany()
+                        .HasForeignKey("PrestamoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StellarMinds.LogicaNegocio.Entidades.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Prestamo");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Observacion", b =>
+                {
+                    b.HasOne("StellarMinds.LogicaNegocio.Entidades.ObjetoCeleste", "ObjetoCeleste")
+                        .WithMany()
+                        .HasForeignKey("ObjetoCelesteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StellarMinds.LogicaNegocio.Entidades.Prestamo", "Prestamo")
+                        .WithMany()
+                        .HasForeignKey("PrestamoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ObjetoCeleste");
+
+                    b.Navigation("Prestamo");
                 });
 
             modelBuilder.Entity("StellarMinds.LogicaNegocio.Entidades.Prestamo", b =>

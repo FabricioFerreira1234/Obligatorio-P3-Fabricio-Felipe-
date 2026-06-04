@@ -15,6 +15,11 @@ public class ApplicationDbContext : DbContext
     public DbSet <Telescopio> Telescopios { get; set; }
     public DbSet <Montura> Monturas { get; set; }
 
+    public DbSet<Auditoria> Auditorias { get; set; }
+
+    public DbSet<ObjetoCeleste> ObjetosCelestes { get; set; }
+    public DbSet<Observacion> Observaciones { get; set; }
+
 
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -54,5 +59,30 @@ public class ApplicationDbContext : DbContext
             .HasOne(p => p.Usuario).WithMany()
             .HasForeignKey(p => p.UsuarioId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Auditoria>()
+            .HasOne(a => a.Usuario).WithMany()
+            .HasForeignKey(a => a.UsuarioId)
+            .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Auditoria>()
+            .HasOne(a => a.Prestamo).WithMany()
+            .HasForeignKey(a => a.PrestamoId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // RF07 - Objeto celeste: magnitud aparente decimal con 2 decimales (puede ser negativa).
+        modelBuilder.Entity<ObjetoCeleste>()
+            .Property(o => o.Magnitud).HasPrecision(10, 2);
+
+        // RF07 - Observación: vincula un préstamo y un objeto celeste; el motivo de la IA hasta 300 caracteres.
+        modelBuilder.Entity<Observacion>()
+            .HasOne(o => o.Prestamo).WithMany()
+            .HasForeignKey(o => o.PrestamoId)
+            .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Observacion>()
+            .HasOne(o => o.ObjetoCeleste).WithMany()
+            .HasForeignKey(o => o.ObjetoCelesteId)
+            .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Observacion>()
+            .Property(o => o.MotivoIA).HasMaxLength(300);
     }
 }

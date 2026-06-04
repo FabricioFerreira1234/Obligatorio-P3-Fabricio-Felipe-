@@ -1,4 +1,4 @@
-﻿@model StellarMinds.DTOs.DataTransferObjects.DTOsEquipo.DTOAltaCamara
+﻿@model StellarMinds.WebApp.Models.Api.AltaCamaraModel
 <h1>Editar Cámara</h1>
 <div class="row">
     <div class="col-md-6">
@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label asp-for="Sensor">Tipo de Sensor</label>
                 <select asp-for="Sensor" class="form-control"
-                        asp-items="Html.GetEnumSelectList<StellarMinds.LogicaNegocio.Enumeraciones.TipoSensor>()">
+                        asp-items="Html.GetEnumSelectList<StellarMinds.WebApp.Models.Api.TipoSensor>()">
                     <option value="">-- Seleccionar --</option>
                 </select>
             </div>

@@ -1,0 +1,99 @@
+@using StellarMinds.WebApp.Auxiliar
+@model StellarMinds.WebApp.Models.PrestamoCreateViewModel
+@{
+    ViewData["Title"] = "Nuevo Préstamo";
+}
+
+<h1>Nuevo Préstamo</h1>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="Create" id="formPrestamo" data-api-base="@ClienteHttpAuxiliar.UrlBase">
+
+    <div class="form-group mb-3">
+        <label asp-for="SocioId">Socio</label>
+        <select asp-for="SocioId" class="form-control">
+            <option value="">-- Seleccione un socio --</option>
+            @foreach (var s in Model.Socios)
+            {
+                <option value="@s.Id">@s.NombreCompleto?.Nombre @s.NombreCompleto?.Apellido (@s.Email)</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="TelescopioId">Telescopio</label>
+        <select asp-for="TelescopioId" class="form-control chequear-disponibilidad" data-feedback="fbTelescopio">
+            <option value="">-- Seleccione un telescopio --</option>
+            @foreach (var t in Model.Telescopios)
+            {
+                <option value="@t.Id">@t.Marca @t.Modelo (stock: @t.Cantidad)</option>
+            }
+        </select>
+        <small id="fbTelescopio" class="form-text"></small>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="MonturaId">Montura</label>
+        <select asp-for="MonturaId" class="form-control chequear-disponibilidad" data-feedback="fbMontura">
+            <option value="">-- Seleccione una montura --</option>
+            @foreach (var m in Model.Monturas)
+            {
+                <option value="@m.Id">@m.Marca @m.Modelo (stock: @m.Cantidad)</option>
+            }
+        </select>
+        <small id="fbMontura" class="form-text"></small>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="VisualId">Equipo visual (opcional)</label>
+        <select asp-for="VisualId" class="form-control chequear-disponibilidad" data-feedback="fbVisual">
+            <option value="">-- Ninguno --</option>
+            @if (Model.Camaras.Any())
+            {
+                <optgroup label="Cámaras">
+                    @foreach (var c in Model.Camaras)
+                    {
+                        <option value="@c.Id">@c.Marca @c.Modelo (stock: @c.Cantidad)</option>
+                    }
+                </optgroup>
+            }
+            @if (Model.Oculares.Any())
+            {
+                <optgroup label="Oculares">
+                    @foreach (var o in Model.Oculares)
+                    {
+                        <option value="@o.Id">@o.Marca @o.Modelo (stock: @o.Cantidad)</option>
+                    }
+                </optgroup>
+            }
+        </select>
+        <small id="fbVisual" class="form-text"></small>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaInicio">Fecha de inicio</label>
+        <input asp-for="FechaInicio" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="FechaFin">Fecha de fin</label>
+        <input asp-for="FechaFin" type="date" class="form-control" />
+    </div>
+
+    <div id="alertaDisponibilidad" class="alert alert-warning d-none"></div>
+
+    <button type="submit" id="btnGuardar" class="btn btn-primary mt-2">Guardar</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary mt-2">Volver</a>
+</form>
+
+@section Scripts {
+    <script src="~/js/prestamo-disponibilidad.js" asp-append-version="true"></script>
+}

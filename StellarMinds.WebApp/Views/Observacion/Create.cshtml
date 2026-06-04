@@ -1,0 +1,95 @@
+@model StellarMinds.WebApp.Models.ObservacionCreateViewModel
+@{
+    ViewData["Title"] = "Nueva Observación";
+
+    string colorIndicador = Model.Indicador switch
+    {
+        "IDEAL" => "success",
+        "ADECUADO" => "warning",
+        "NO RECOMENDABLE" => "danger",
+        _ => "secondary"
+    };
+}
+
+<h1>Nueva Observación</h1>
+<p class="text-muted">Planificá una noche de observación: elegí un préstamo vigente, el objeto celeste y la fecha, y evaluá si el equipo es adecuado.</p>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (!Model.Prestamos.Any())
+{
+    <div class="alert alert-info">No tenés préstamos vigentes y en préstamo para planificar observaciones.</div>
+}
+else
+{
+    <form asp-action="Evaluar" method="post" class="mb-4">
+        <div class="form-group mb-3">
+            <label for="PrestamoId">Préstamo (equipo)</label>
+            <select id="PrestamoId" name="PrestamoId" class="form-control" required>
+                <option value="">-- Seleccione un préstamo --</option>
+                @foreach (var p in Model.Prestamos)
+                {
+                    <option value="@p.Id" selected="@(p.Id == Model.PrestamoId)">
+                        @p.Telescopio + @p.Montura@(string.IsNullOrEmpty(p.Visual) ? "" : " + " + p.Visual) (@p.FechaInicio.ToShortDateString() - @p.FechaFin.ToShortDateString())
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="ObjetoCelesteId">Objeto celeste</label>
+            <select id="ObjetoCelesteId" name="ObjetoCelesteId" class="form-control" required>
+                <option value="">-- Seleccione un objeto --</option>
+                @foreach (var o in Model.Objetos)
+                {
+                    <option value="@o.Id" selected="@(o.Id == Model.ObjetoCelesteId)">
+                        @o.Nombre (@o.Tipo) - magnitud @o.Magnitud
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Fecha">Fecha de observación</label>
+            <input type="date" id="Fecha" name="Fecha" class="form-control" value="@Model.Fecha.ToString("yyyy-MM-dd")" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ver evaluación</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Volver</a>
+    </form>
+
+    @if (Model.Evaluado)
+    {
+        <div class="card border-@colorIndicador mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Resultado de la evaluación:
+                    <span class="badge bg-@colorIndicador">@Model.Indicador</span>
+                </h5>
+                @if (!string.IsNullOrWhiteSpace(Model.Detalle))
+                {
+                    <p class="card-text">@Model.Detalle</p>
+                }
+                else
+                {
+                    <p class="card-text text-muted">El equipo es ideal para este objeto.</p>
+                }
+
+                <form asp-action="Confirmar" method="post">
+                    <input type="hidden" name="PrestamoId" value="@Model.PrestamoId" />
+                    <input type="hidden" name="ObjetoCelesteId" value="@Model.ObjetoCelesteId" />
+                    <input type="hidden" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" />
+                    <button type="submit" class="btn btn-success">Confirmar alta de la observación</button>
+                </form>
+                <small class="text-muted">Para cambiar el objeto o el préstamo, modificá la selección arriba y volvé a apretar "Ver evaluación".</small>
+            </div>
+        </div>
+    }
+}

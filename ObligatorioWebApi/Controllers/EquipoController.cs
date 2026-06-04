@@ -59,6 +59,23 @@ namespace ObligatorioWebApi.Controllers
             return Ok(equipo);
         }
 
+        // RF04 - Consultada por el JavaScript del cliente para verificar disponibilidad sin enviar el formulario.
+        [HttpGet("disponibilidad/{id}")]
+        [AllowAnonymous]
+        public IActionResult Disponibilidad(int id)
+        {
+            Equipo equipo = _cuObtenerEquipos.ObtenerPorId(id);
+            if (equipo == null)
+                return NotFound(new { Message = "Equipo no encontrado." });
+
+            return Ok(new
+            {
+                id = equipo.Id,
+                cantidad = equipo.Cantidad,
+                disponible = equipo.Cantidad > 0
+            });
+        }
+
         [HttpPost("telescopio")]
         [Authorize(Roles = "Administrador,Coordinador")]
         public IActionResult AltaTelescopio([FromBody] DTOAltaTelescopio dto) => Alta(() => _cuTelescopio.Alta(dto));

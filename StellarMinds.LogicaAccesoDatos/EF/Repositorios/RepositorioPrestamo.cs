@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StellarMinds.LogicaNegocio.Entidades;
+using StellarMinds.LogicaNegocio.Enumeraciones;
 using StellarMinds.LogicaNegocio.IRepositorios;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,38 @@ namespace StellarMinds.LogicaAccesoDatos.EF.Repositorios
                             && p.Fecha.Inicio.Year == anio)
                 .OrderBy(p => p.Fecha.Inicio)
                 .ToList();
+        }
+
+        public List<Prestamo> ObtenerPorSocioYEstado(int usuarioId, EstadoPrestamo estado)
+        {
+            return _context.Prestamos
+                .Include(p => p.Telescopio)
+                .Include(p => p.Montura)
+                .Include(p => p.Visual)
+                .Where(p => p.UsuarioId == usuarioId && p.Estado == estado)
+                .OrderByDescending(p => p.Fecha.Inicio)
+                .ToList();
+        }
+
+        // RF09 - Socios (sin repetir) que solicitaron un telescopio dado, ordenados por nombre descendente.
+        public List<Usuario> ObtenerSociosPorTelescopio(int telescopioId)
+        {
+            return _context.Prestamos
+                .Where(p => p.TelescopioId == telescopioId)
+                .Select(p => p.Usuario)
+                .Distinct()
+                .OrderByDescending(u => u.NombreCompleto.Nombre)
+                .ThenByDescending(u => u.NombreCompleto.Apellido)
+                .ToList();
+        }
+
+        public Prestamo ObtenerPorId(int id)
+        {
+            return _context.Prestamos
+                .Include(p => p.Telescopio)
+                .Include(p => p.Montura)
+                .Include(p => p.Visual)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Prestamo p)

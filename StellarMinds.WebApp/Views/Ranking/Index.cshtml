@@ -1,0 +1,43 @@
+@model StellarMinds.WebApp.Models.RankingObjetosViewModel
+@{
+    ViewData["Title"] = "Ranking de Objetos Celestes";
+}
+
+<h1>Ranking de Objetos Celestes</h1>
+<p class="text-muted">Objetos celestes observados por los socios, ordenados por la cantidad de veces que fueron observados (de mayor a menor).</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (Model.Ranking.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 4rem;">#</th>
+                <th>Objeto celeste</th>
+                <th>Tipo</th>
+                <th class="text-end">Veces observado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int posicion = 1; }
+            @foreach (var o in Model.Ranking)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@o.Nombre</td>
+                    <td>@o.Tipo</td>
+                    <td class="text-end">@o.CantidadObservaciones</td>
+                </tr>
+                posicion++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">Todavía no se registraron observaciones de objetos celestes.</div>
+}

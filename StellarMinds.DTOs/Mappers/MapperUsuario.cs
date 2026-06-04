@@ -34,9 +34,23 @@ namespace StellarMinds.DTOs.Mappers
             return retorno;
         }
 
+        // RF09 - Proyección mínima del socio para el listado por telescopio (sin contraseña).
+        public static DTOSocioTelescopio ToDtoSocioTelescopio(Usuario u)
+        {
+            return new DTOSocioTelescopio
+            {
+                Id = u.Id,
+                Nombre = u.NombreCompleto?.Nombre,
+                Apellido = u.NombreCompleto?.Apellido,
+                Email = u.Email,
+                Telefono = u.Telefono
+            };
+        }
+
         public static DTOUsuario ToDtoUsuario(Usuario p)
         {
             DTOUsuario retorno = new DTOUsuario();
+            retorno.Id = p.Id;
             retorno.NombreCompleto = p.NombreCompleto;
             retorno.Direccion = p.Direccion;
             retorno.Telefono = p.Telefono;
