@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="ObligatorioWebApi/ObligatorioWebApi.csproj" Id="cee7fa10-df6e-4ca0-b624-394e91baffcc" />
-  <Project Path="StellarMinds.DTOs/StellarMinds.DTOs.csproj" />
-  <Project Path="StellarMinds.LogicaAccesoDatos/StellarMinds.LogicaAccesoDatos.csproj" />
-  <Project Path="StellarMinds.LogicaAplicacion/StellarMinds.LogicaAplicacion.csproj" />
-  <Project Path="StellarMinds/StellarMinds.LogicaNegocio.csproj" />
-</Solution>
