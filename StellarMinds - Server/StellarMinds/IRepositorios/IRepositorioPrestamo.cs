@@ -13,5 +13,7 @@ namespace StellarMinds.LogicaNegocio.IRepositorios
         // RF09 - Socios (sin repetir) que solicitaron un telescopio dado, ordenados por nombre descendente.
         List<Usuario> ObtenerSociosPorTelescopio(int telescopioId);
         Prestamo ObtenerPorId(int id);
+        // RF11 - Préstamo con equipos y socio cargados, para el link de detalles.
+        Prestamo ObtenerDetalle(int id);
     }
 }

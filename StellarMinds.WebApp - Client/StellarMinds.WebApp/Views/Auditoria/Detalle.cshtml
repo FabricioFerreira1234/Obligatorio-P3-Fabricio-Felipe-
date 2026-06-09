@@ -1,0 +1,49 @@
+@model StellarMinds.WebApp.Models.PrestamoDetalleViewModel
+@{
+    ViewData["Title"] = "Detalle del Préstamo";
+    var p = Model.Prestamo;
+}
+
+<h1>Detalle del Préstamo #@p.Id</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<dl class="row">
+    <dt class="col-sm-3">Socio</dt>
+    <dd class="col-sm-9">@p.Socio</dd>
+
+    <dt class="col-sm-3">Coordinador (alta)</dt>
+    <dd class="col-sm-9">@p.Coordinador</dd>
+
+    <dt class="col-sm-3">Telescopio</dt>
+    <dd class="col-sm-9">@p.Telescopio</dd>
+
+    <dt class="col-sm-3">Montura</dt>
+    <dd class="col-sm-9">@p.Montura</dd>
+
+    <dt class="col-sm-3">Cámara / Ocular</dt>
+    <dd class="col-sm-9">@(string.IsNullOrEmpty(p.Visual) ? "-" : p.Visual)</dd>
+
+    <dt class="col-sm-3">Desde</dt>
+    <dd class="col-sm-9">@p.FechaInicio.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Hasta</dt>
+    <dd class="col-sm-9">@p.FechaFin.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Estado</dt>
+    <dd class="col-sm-9">
+        @p.Estado
+        @if (p.Atrasado)
+        {
+            <span class="badge bg-danger">Atrasado</span>
+        }
+    </dd>
+</dl>
+
+<div class="mt-3">
+    <a asp-action="Auditoria" asp-route-prestamoId="@p.Id" class="btn btn-secondary">Volver a la auditoría</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</div>

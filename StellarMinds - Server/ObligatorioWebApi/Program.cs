@@ -6,8 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ObligatorioWebApi.JWT;
 using StellarMinds.LogicaAccesoDatos.EF.Repositorios;
+using StellarMinds.LogicaAplicacion.CasosUso.CUAuditoria;
 using StellarMinds.LogicaAplicacion.CasosUso.CUEquipo;
 using StellarMinds.LogicaAplicacion.CasosUso.CUObservacion;
+using StellarMinds.LogicaAplicacion.ICasosUso.ICUAuditoria;
 using StellarMinds.LogicaAplicacion.ICasosUso.ICUObservacion;
 using StellarMinds.LogicaAplicacion.Servicios;
 using StellarMinds.LogicaAplicacion.CasosUso.CUPrestamo;
@@ -134,6 +136,10 @@ builder.Services.AddScoped<ICUObtenerPrestamosVigentesSocio, CUObtenerPrestamosV
 builder.Services.AddScoped<ICUEvaluarAdecuacion, CUEvaluarAdecuacion>();
 builder.Services.AddScoped<ICUAltaObservacion, CUAltaObservacion>();
 builder.Services.AddScoped<ICURankingObjetosCelestes, CURankingObjetosCelestes>(); // RF10
+//Auditoria (RF11)
+builder.Services.AddScoped<ICUListadoPrestamosAuditoria, CUListadoPrestamosAuditoria>();
+builder.Services.AddScoped<ICUAuditoriaPrestamo, CUAuditoriaPrestamo>();
+builder.Services.AddScoped<ICUDetallePrestamo, CUDetallePrestamo>();
 
 // Manejador de tokens JWT
 builder.Services.AddScoped<IJWTHandler, JWTHandler>();

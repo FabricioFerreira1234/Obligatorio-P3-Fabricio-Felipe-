@@ -64,6 +64,17 @@ namespace StellarMinds.LogicaAccesoDatos.EF.Repositorios
                 .FirstOrDefault(p => p.Id == id);
         }
 
+        // RF11 - Préstamo con equipos y socio cargados, para el link de detalles.
+        public Prestamo ObtenerDetalle(int id)
+        {
+            return _context.Prestamos
+                .Include(p => p.Telescopio)
+                .Include(p => p.Montura)
+                .Include(p => p.Visual)
+                .Include(p => p.Usuario)
+                .FirstOrDefault(p => p.Id == id);
+        }
+
         public void Add(Prestamo p)
         {
             _context.Prestamos.Add(p);
