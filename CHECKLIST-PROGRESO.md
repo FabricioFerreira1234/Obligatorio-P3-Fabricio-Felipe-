@@ -13,7 +13,7 @@
 | ✅ | Implementado en .NET 10, EF Core 10, MVC y Web API, HttpClient | Verificado en código |
 | ✅ | Swagger configurado y operativo con documentación | `Program.cs` con `AddSwaggerGen` + seguridad JWT |
 | 🙋 | Evidencia de pruebas de la API con Swagger o Postman | Hay que sacar capturas/colección |
-| ⚠️ | Repositorio GitHub | Repo git local; confirmar que está **pusheado a GitHub** |
+| ✅ | Repositorio GitHub | Pusheado a `github.com/FabricioFerreira1234/Obligatorio2026-Fabricio` (historial limpiado de la API key de Gemini). |
 | 🙋 | Despliegue API+BD en SOMEE (si grupo de 2) / local + MVC consume SOMEE | Depende del tamaño del grupo |
 | ⚠️ | Realizar precarga de datos con ayuda de ChatGPT | Hecho vía seed; documentar que se usó IA |
 | 🙋 | Pre-entregas en aulas | Gestión del curso |
@@ -83,7 +83,7 @@
 | RF08 | Listado de préstamos entre fechas (Socio) | `CUListadoPrestamosSocio` | `Prestamo/MisPrestamos` | ✅ |
 | RF09 | Socios por telescopio (Admin/Coord) | `CUSociosPorTelescopio` | `Prestamo/SociosPorTelescopio` | ✅ |
 | RF10 | Ranking de objetos celestes (cualquier rol) | `CURankingObjetosCelestes` | `Ranking/Index` | ✅ |
-| RF11 | Información de auditoría (Admin) | `CUAuditoriaPrestamo`, `CUDetallePrestamo` | `Auditoria/*` | ⚠️ sin commitear |
+| RF11 | Información de auditoría (Admin) | `CUAuditoriaPrestamo`, `CUDetallePrestamo` | `Auditoria/*` | ✅ commiteado y pusheado |
 
 ---
 
